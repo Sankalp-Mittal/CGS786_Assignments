@@ -1326,14 +1326,14 @@ def generate_global_symmetric_data():
     generate_dataset_4(r'data\symmetry_global\ds1',size=[299,299],nsample=400) # A1, B1, C1
     generate_challenge_4(r'data\symmetry_global\ds1', 'train') # D1(A1)
     generate_challenge_4(r'data\symmetry_global\ds1', 'valid') # D1(B1)
-    # generate_dataset_4_deliberate(r'data\symmetry_global\ds2', r'data\symmetry_global\ds1') # A2, B2
-    # generate_challenge_4_d1(r'data\symmetry_global\ds2', 'train') # D2(A2)
-    # generate_challenge_4_d1(r'data\symmetry_global\ds2', 'valid') # D2(B2)
-    # generate_dataset_4_deliberate(r'data\symmetry_global\ds3', r'data\symmetry_global\ds2') # A3, B3
-    # generate_challenge_4_d2(r'data\symmetry_global\ds3') # D3(A3)
-    # generate_challenge_4_final(r'data\symmetry_global\ds4', 4000, subset = 'test') # A4
-    # generate_challenge_4_d3(r'data\symmetry_global\ds4', r'data\symmetry_global\ds3') # A3+A4, B3+B4
-    # generate_challenge_4_final_newShape(r'data\symmetry_global\ds4', 4000, subset = 'test_newshape') # C4
+    generate_dataset_4_deliberate(r'data\symmetry_global\ds2', r'data\symmetry_global\ds1') # A2, B2
+    generate_challenge_4_d1(r'data\symmetry_global\ds2', 'train') # D2(A2)
+    generate_challenge_4_d1(r'data\symmetry_global\ds2', 'valid') # D2(B2)
+    generate_dataset_4_deliberate(r'data\symmetry_global\ds3', r'data\symmetry_global\ds2') # A3, B3
+    generate_challenge_4_d2(r'data\symmetry_global\ds3') # D3(A3)
+    generate_challenge_4_final(r'data\symmetry_global\ds4', 400, subset = 'test') # A4
+    generate_challenge_4_d3(r'data\symmetry_global\ds4', r'data\symmetry_global\ds3') # A3+A4, B3+B4
+    generate_challenge_4_final_newShape(r'data\symmetry_global\ds4', 400, subset = 'test_newshape') # C4
     
 ## add Hex, F4, F2
 def addShape_new(imageF, componentList, result, rotate=True, choice=None, pos=None, size=None, color=None):
@@ -1960,7 +1960,7 @@ def generate_challenge_4_final(rpath, nsample, subset = 'final_test'):
     newComp0 = []
     newComp1 = []
     
-    imageio.imsave('blank.png', np.zeros((200,200)))
+    imageio.imsave('blank.png', np.zeros((299,299),dtype=np.uint8))
     
     for isample in range(nsample):
         shapeHalfImage_more('blank.png', os.path.join(path0, str(isample)+'.png'), 2)
@@ -2069,7 +2069,7 @@ def shapeHalfImage(old, new, pattern):
     result = np.reshape(list(tmp.getdata()), (H, W))
     
     if pattern == 2: #  both half
-        result[:,W//2:] = result[:,0:W//2][:,::-1]
+        result[:,W//2 + 1:] = result[:,0:W//2][:,::-1]
         
     elif pattern == 0: #  left half
         pass
@@ -2169,7 +2169,7 @@ def shapeHalfImage_more(old, new, pattern):
     tmp = Image.open('temp.png')
     result = np.reshape(list(tmp.getdata()), (H, W))
     if pattern == 2:
-        result[:,W//2:] = result[:,0:W//2][:,::-1]
+        result[:,W//2 + 1:] = result[:,0:W//2][:,::-1]
     elif pattern == 0: #  left half
         pass
         
@@ -3609,6 +3609,3 @@ def generate_swarm_2(rpath, size=[300,300], nsample=2000, debug=False):
         
         
 generate_global_symmetric_data()
-# generate_local_symmetric_data()
-# generate_count_object_data()
-# generate_count_type_data()

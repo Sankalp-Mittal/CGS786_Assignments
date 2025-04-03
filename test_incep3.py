@@ -19,7 +19,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras import backend as K
 from tensorflow.keras.layers import Input
-from tensorflow.keras.utils import np_utils
+# from tensorflow.keras.utils import np_utils
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras import callbacks
